@@ -9,10 +9,7 @@ public class ParanthesseCheck {
 		String val = "{{[[(())]]}}";
 
 		System.out.println(isCheckValid(val.toCharArray()));
-
 	}
-	
-	
 
 	public static boolean isCheckValid(char[] value) {
 
@@ -24,6 +21,7 @@ public class ParanthesseCheck {
 				if (value[i] == '[' || value[i] == '{' || value[i] == '(') {
 					st.push(value[i]);
 				} else {
+
 					if(st.isEmpty())
 						return false;
 					
@@ -35,13 +33,11 @@ public class ParanthesseCheck {
 						st.pop();
 					if (value[i] == ')' && character == '(')
 						st.pop();
-				}
-				
-			}
 
+				}
+			}
 			if (st.isEmpty())
 				return true;
-
 		}
 		return false;
 	}

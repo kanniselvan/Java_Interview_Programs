@@ -5,11 +5,11 @@ public class Palindrom {
 	public static void main(String[] args) {
 		
 		String val="12343251";
-		System.out.println(isPalindrom(0, val.length()-1, val));
+		System.out.println(isPalindrome(0, val.length()-1, val));
 
 	}
 
-	public static boolean isPalindrom(int left, int right, String value) {
+	public static boolean isPalindrome(int left, int right, String value) {
 
 		if (null != value && !value.isEmpty()) {
 
@@ -19,7 +19,7 @@ public class Palindrom {
 			if (value.charAt(left) != value.charAt(right))
 				return false;
 
-			return isPalindrom(++left, --right, value);
+			return isPalindrome(++left, --right, value);
 
 		}
 
