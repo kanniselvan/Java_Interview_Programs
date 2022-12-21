@@ -1,6 +1,5 @@
 package com.kanni;
 
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -10,7 +9,7 @@ public class ThreadNumberPrint1 {
 
     static AtomicReference<String> atomicReference=new AtomicReference<>("Thread 1");
 
-    final static int print=15;
+    final static int print=50;
 
     public static void main(String[] args) {
         new FirstThread().start();
@@ -27,11 +26,16 @@ public class ThreadNumberPrint1 {
             setName("Thread 1");
             while(atomicInteger.get() < print ){
                 if(atomicReference.get().equalsIgnoreCase("Thread 1")) {
-                    System.out.println(ThirdThread.currentThread().getName() + "    " + atomicInteger.getAndIncrement());
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(FirstThread.currentThread().getName() + "    " + atomicInteger.getAndIncrement());
                     atomicReference.compareAndSet("Thread 1","Thread 2");
                 }
             }
-            System.out.println("  completed!!" + ThirdThread.currentThread().getName());
+            System.out.println("  completed!!" + FirstThread.currentThread().getName());
         }
     }
 
@@ -42,11 +46,17 @@ public class ThreadNumberPrint1 {
             setName("Thread 2");
             while(atomicInteger.get() < print ){
                 if(atomicReference.get().equalsIgnoreCase("Thread 2")) {
-                    System.out.println(ThirdThread.currentThread().getName() + "    " + atomicInteger.getAndIncrement());
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    System.out.println(SecondThread.currentThread().getName() + "    " + atomicInteger.getAndIncrement());
                     atomicReference.compareAndSet("Thread 2","Thread 3");
                 }
             }
-            System.out.println(" completed!!"+ ThirdThread.currentThread().getName() );
+            System.out.println(" completed!!"+ SecondThread.currentThread().getName() );
         }
     }
 
@@ -57,6 +67,11 @@ public class ThreadNumberPrint1 {
             setName("Thread 3");
             while(atomicInteger.get() < print ){
                 if(atomicReference.get().equalsIgnoreCase("Thread 3")) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println(ThirdThread.currentThread().getName() + "    " + atomicInteger.getAndIncrement());
                     atomicReference.compareAndSet("Thread 3","Thread 4");
                 }
@@ -72,11 +87,16 @@ public class ThreadNumberPrint1 {
             setName("Thread 4");
             while(atomicInteger.get() < print ){
                 if(atomicReference.get().equalsIgnoreCase("Thread 4")) {
-                    System.out.println(ThirdThread.currentThread().getName() + "    " + atomicInteger.getAndIncrement());
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(FourthThread.currentThread().getName() + "    " + atomicInteger.getAndIncrement());
                     atomicReference.compareAndSet("Thread 4","Thread 1");
                 }
             }
-            System.out.println("  completed!!" + ThirdThread.currentThread().getName());
+            System.out.println("  completed!!" + FourthThread.currentThread().getName());
         }
     }
 }

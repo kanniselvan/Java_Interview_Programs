@@ -6,7 +6,7 @@ public class ParanthesseCheck {
 
 	public static void main(String[] args) {
 
-		String val = "{{[[(())]]}}";
+		String val = "{{[[(())]]}";
 
 		System.out.println(isCheckValid(val.toCharArray()));
 	}
@@ -16,6 +16,7 @@ public class ParanthesseCheck {
 		if (null != value && value.length > 0) {
 
 			Stack<Character> st = new Stack<>();
+
 			for (int i = 0; i < value.length; i++) {
 
 				if (value[i] == '[' || value[i] == '{' || value[i] == '(') {
@@ -25,7 +26,7 @@ public class ParanthesseCheck {
 					if(st.isEmpty())
 						return false;
 					
-					Character character = st.peek();
+					Character character = st.peek(); //fetch value from stack
 
 					if (value[i] == ']' && character == '[')
 						st.pop();

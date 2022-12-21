@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ThreadNumberPrintExample {
 
     static AtomicInteger atomicInteger=new AtomicInteger(1);
+
     static AtomicBoolean firstflag=new AtomicBoolean(true);
     static AtomicBoolean secondflag=new AtomicBoolean(false);
     static AtomicBoolean thirdfalg=new AtomicBoolean(false);
@@ -26,12 +27,17 @@ public class ThreadNumberPrintExample {
             setName("Thread 1");
             while(atomicInteger.get() < print ){
                 if(firstflag.get()) {
-                    System.out.println(ThirdThread.currentThread().getName() + "    " + atomicInteger.getAndIncrement());
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(FirstThread.currentThread().getName() + "    " + atomicInteger.getAndIncrement());
                     secondflag.set(true);
                     firstflag.set(false);
                 }
             }
-            System.out.println("  completed!!" +ThirdThread.currentThread().getName());
+            System.out.println("  completed!!" +FirstThread.currentThread().getName());
         }
     }
     static class SecondThread extends Thread {
@@ -41,12 +47,17 @@ public class ThreadNumberPrintExample {
             setName("Thread 2");
             while(atomicInteger.get() < print ){
                 if(secondflag.get()) {
-                    System.out.println(ThirdThread.currentThread().getName() + "    " + atomicInteger.getAndIncrement());
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(SecondThread.currentThread().getName() + "    " + atomicInteger.getAndIncrement());
                     secondflag.set(false);
                     thirdfalg.set(true);
                 }
             }
-            System.out.println(" completed!!"+ThirdThread.currentThread().getName() );
+            System.out.println(" completed!!"+SecondThread.currentThread().getName() );
         }
     }
     static class ThirdThread extends Thread {
@@ -56,6 +67,11 @@ public class ThreadNumberPrintExample {
             setName("Thread 3");
             while(atomicInteger.get() < print ){
                 if(thirdfalg.get()) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println(ThirdThread.currentThread().getName() + "    " + atomicInteger.getAndIncrement());
                     thirdfalg.set(false);
                     firstflag.set(true);
