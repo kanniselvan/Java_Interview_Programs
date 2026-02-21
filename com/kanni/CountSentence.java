@@ -55,6 +55,25 @@ public class CountSentence {
         return result;
     }
 
+    // New approach using stream
+    private static List<Long> countSentence(List<String> words, List<String> sentences) {
+
+    // Build anagram count map
+    Map<String, Long> anagramCounts = words.stream()
+            .collect(Collectors.toMap(
+                    w -> w,
+                    w -> words.stream().filter(x -> anagram(w, x)).count()
+            ));
+
+    return sentences.stream()
+            .map(line ->
+                    Arrays.stream(line.split("\\s+"))
+                            .map(word -> anagramCounts.getOrDefault(word, 1L))
+                            .reduce(1L, (a, b) -> a * b)
+            )
+            .collect(Collectors.toList());
+}
+
     private static boolean anagram(String str1, String str2) {
         if(null!=str1 && null!=str2 && str1.trim().length()>0 && str2.trim().length()>0){
             str1=str1.replaceAll("\\s+","");
