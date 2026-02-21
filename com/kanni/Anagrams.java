@@ -2,7 +2,7 @@ package com.kanni;
 
 public class Anagrams {
     public static void main(String[] args) {
-
+        //Two strings are anagrams if they are rearrangements of the same letters.
         String first = "deal";
         String second = "lead";
         Anagrams nm = new Anagrams();
